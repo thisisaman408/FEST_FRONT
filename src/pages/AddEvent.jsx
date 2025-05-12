@@ -89,7 +89,7 @@ export default function AddEvent() {
 
 		try {
 			const response = await axios.post(
-				'http://localhost:4000/ml/recommend',
+				'https://fest-api-falm.onrender.com/ml/recommend',
 				requestBody
 			);
 
