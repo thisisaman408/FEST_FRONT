@@ -1,11 +1,8 @@
-import axios from 'axios';
 import { useContext, useState } from 'react';
 import { FaExclamationCircle, FaSpinner } from 'react-icons/fa';
+import api from '../api.js';
 import { UserContext } from '../UserContext';
 import Sponsors from './Sponsors';
-
-const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
-axios.defaults.baseURL = API_BASE_URL;
 export default function AddEvent() {
 	const { user } = useContext(UserContext);
 	const [formData, setFormData] = useState({
@@ -51,7 +48,7 @@ export default function AddEvent() {
 		}
 
 		try {
-			const response = await axios.post('/createEvent', data, {
+			const response = await api.post('/createEvent', data, {
 				headers: { 'Content-Type': 'multipart/form-data' },
 			});
 			console.log('Event posted successfully:', response.data);
@@ -90,7 +87,7 @@ export default function AddEvent() {
 		if (minPopularity) requestBody.min_popularity = Number(minPopularity);
 
 		try {
-			const response = await axios.post('/ml/recommend', requestBody);
+			const response = await api.post('/ml/recommend', requestBody);
 
 			if (response.data && response.data.selected_events) {
 				setAiRecommendations(response.data.selected_events);

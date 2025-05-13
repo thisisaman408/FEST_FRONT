@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import { RxExit } from 'react-icons/rx';
 import { Link } from 'react-router-dom';
+import api from '../api';
 import logo from '../assets/logo.png';
 import { UserContext } from '../UserContext';
 
@@ -15,7 +16,7 @@ export default function Header() {
 
 	//! Fetch events from the server -------------------------------------------------
 	useEffect(() => {
-		axios
+		api
 			.get('/events')
 			.then((response) => {
 				setEvents(response.data);
