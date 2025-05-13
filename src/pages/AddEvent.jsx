@@ -4,6 +4,8 @@ import { FaExclamationCircle, FaSpinner } from 'react-icons/fa';
 import { UserContext } from '../UserContext';
 import Sponsors from './Sponsors';
 
+const API_BASE_URL = import.meta.env.VITE_BACKEND_API_URL;
+axios.defaults.baseURL = API_BASE_URL;
 export default function AddEvent() {
 	const { user } = useContext(UserContext);
 	const [formData, setFormData] = useState({
@@ -88,10 +90,7 @@ export default function AddEvent() {
 		if (minPopularity) requestBody.min_popularity = Number(minPopularity);
 
 		try {
-			const response = await axios.post(
-				'https://fest-api-falm.onrender.com/ml/recommend',
-				requestBody
-			);
+			const response = await axios.post('/ml/recommend', requestBody);
 
 			if (response.data && response.data.selected_events) {
 				setAiRecommendations(response.data.selected_events);
